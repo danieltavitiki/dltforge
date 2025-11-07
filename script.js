@@ -69,24 +69,24 @@ contactForm.addEventListener('submit', (e) => {
   // For now, we'll just show a confirmation message
   
   // Example: Send to Formspree (replace with your endpoint)
-  // fetch('https://formspree.io/f/YOUR_FORM_ID', {
-  //   method: 'POST',
-  //   body: formData,
-  //   headers: {
-  //     'Accept': 'application/json'
-  //   }
-  // })
-  // .then(response => {
-  //   if (response.ok) {
-  //     alert('Thank you for your message! I will get back to you soon.');
-  //     contactForm.reset();
-  //   } else {
-  //     alert('Oops! There was a problem submitting your form.');
-  //   }
-  // })
-  // .catch(error => {
-  //   alert('Oops! There was a problem submitting your form.');
-  // });
+   fetch('https://formspree.io/f/mrbonvgl', {
+     method: 'POST',
+     body: formData,
+     headers: {
+       'Accept': 'application/json'
+     }
+   })
+   .then(response => {
+     if (response.ok) {
+       alert('Thank you for your message! I will get back to you soon.');
+       contactForm.reset();
+     } else {
+       alert('Oops! There was a problem submitting your form.');
+     }
+   })
+   .catch(error => {
+     alert('Oops! There was a problem submitting your form.');
+   });
   
   // Temporary alert for demo purposes
   alert(`Thank you, ${name}! Your message has been received. I'll get back to you at ${email} soon.`);
