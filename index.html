@@ -6,6 +6,7 @@
   <title>DLT Forge | Daniel Tavitiki</title>
   <meta name="description" content="iOS and Google app developer portfolio for Daniel Tavitiki. Projects, services, and contact.">
   <meta name="author" content="Daniel Tavitiki">
+  <meta name="theme-color" content="#000000">
   <meta property="og:title" content="DLT Forge | Daniel Tavitiki">
   <meta property="og:description" content="iOS and Google app developer portfolio for Daniel Tavitiki.">
   <meta property="og:type" content="website">
@@ -14,36 +15,42 @@
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
   <header class="site-header">
     <nav class="nav">
-      <a href="#home" class="brand">DLT Forge</a>
+      <a href="#home" class="brand">DLT_FORGE</a>
       <button id="navToggle" class="nav-toggle" aria-label="Toggle navigation">
         <span></span>
         <span></span>
         <span></span>
       </button>
       <ul id="navList" class="nav-list">
-        <li><a href="#about">About</a></li>
-        <li><a href="#experience">Experience</a></li>
-        <li><a href="#projects">Projects</a></li>
-        <li><a href="#services">Services</a></li>
-        <li><a href="#contact">Contact</a></li>
+        <li><a href="#about">about</a></li>
+        <li><a href="#experience">experience</a></li>
+        <li><a href="#projects">projects</a></li>
+        <li><a href="#services">services</a></li>
+        <li><a href="#contact">contact</a></li>
       </ul>
     </nav>
   </header>
 
   <main id="home" class="hero">
     <div class="container">
+      <div class="terminal-prompt">
+        <span class="user">user</span>@<span class="path">dltforge</span>:~$ whoami<span class="cursor"></span>
+      </div>
       <h1>Daniel Tavitiki</h1>
       <p class="tagline">iOS & Google App Developer</p>
       <p class="sub">Building digital experiences that are simple, secure, and smart.</p>
       <div class="cta-row">
         <a class="btn primary" href="#projects">View My Work</a>
         <a class="btn secondary" href="#contact">Contact Me</a>
+        <button id="shareBtn" class="btn tertiary" aria-label="Share this portfolio">
+          <span class="share-icon">↗</span> Share
+        </button>
       </div>
     </div>
   </main>
@@ -124,7 +131,7 @@
           <h3>Daily Verse Wallpaper</h3>
           <p class="project-desc">Faith-inspired wallpaper app</p>
           <p class="project-platform">iOS</p>
-          <a href=https://apps.apple.com/us/app/daily-verse-wallpaper/id6754994853 class="btn small">View on App Store</a>
+          <a href="https://apps.apple.com/us/app/daily-verse-wallpaper/id6754994853" class="btn small" target="_blank" rel="noopener noreferrer">View on App Store</a>
         </article>
         <article class="project-card">
           <div class="project-icon">💡</div>
@@ -178,43 +185,42 @@
   <section id="contact" class="section">
     <div class="container narrow">
       <h2>Contact</h2>
-      <p class="intro">Let's work together on your next project. Reach out via email or use the form below.</p>
+      <p class="intro">Let's work together on your next project.</p>
       
       <div class="contact-info">
         <p><strong>Daniel Tavitiki</strong></p>
-        <p><a href="mailto:support@dltforge.com">support@dltforge.com</a></p>
+        <p><a href="mailto:hello@dltforge.com">hello@dltforge.com</a></p>
       </div>
 
       <form id="contactForm" class="contact-form">
         <div class="form-group">
           <label for="name">Name</label>
-          <input type="text" id="name" name="name" required>
+          <input type="text" id="name" name="name" placeholder="Enter your name" required>
         </div>
         <div class="form-group">
           <label for="email">Email</label>
-          <input type="email" id="email" name="email" required>
+          <input type="email" id="email" name="email" placeholder="Enter your email" required>
         </div>
         <div class="form-group">
           <label for="message">Message</label>
-          <textarea id="message" name="message" rows="5" required></textarea>
+          <textarea id="message" name="message" rows="5" placeholder="Your message..." required></textarea>
         </div>
         <button type="submit" class="btn primary">Send Message</button>
       </form>
       
       <div class="social-links">
-        <a href="https://github.com/danieltavitiki">GitHub</a>
-        <a href="https://linkedin.com/in/daniel-tavitiki-7960a9107">LinkedIn</a>
+        <a href="https://github.com/danieltavitiki" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a href="https://linkedin.com/in/daniel-tavitiki-7960a9107" target="_blank" rel="noopener noreferrer">LinkedIn</a>
       </div>
     </div>
   </section>
 
   <footer class="site-footer">
     <div class="container">
-      <p>&copy; 2025 DLT Forge | Designed & Developed by Daniel Tavitiki</p>
+      <p>© 2025 DLT Forge | Designed & Developed by Daniel Tavitiki</p>
     </div>
   </footer>
 
   <script src="/script.js"></script>
 </body>
 </html>
-

@@ -66,8 +66,8 @@ Update the project links in `index.html` with actual App Store, Google Play, or 
 Add your actual social media and profile URLs in the contact section:
 
 ```html
-<a href="https://github.com/yourusername">GitHub</a>
-<a href="https://linkedin.com/in/yourprofile">LinkedIn</a>
+<a href="https://github.com/danieltavitiki">GitHub</a>
+<a href="https://linkedin.com/in/daniel-tavitiki-7960a9107">LinkedIn</a>
 ```
 
 ## Deployment

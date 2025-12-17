@@ -38,7 +38,7 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
   });
 });
 
-// Header shadow on scroll
+// Header glow effect on scroll
 const header = document.querySelector('.site-header');
 let lastScroll = 0;
 
@@ -46,9 +46,11 @@ window.addEventListener('scroll', () => {
   const currentScroll = window.pageYOffset;
   
   if (currentScroll > 50) {
-    header.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.1)';
+    header.style.boxShadow = '0 0 30px rgba(0, 255, 255, 0.1)';
+    header.style.borderBottomColor = 'rgba(0, 255, 255, 0.3)';
   } else {
-    header.style.boxShadow = '0 1px 3px rgba(0, 0, 0, 0.08)';
+    header.style.boxShadow = 'none';
+    header.style.borderBottomColor = '#333333';
   }
   
   lastScroll = currentScroll;
@@ -65,33 +67,85 @@ contactForm.addEventListener('submit', (e) => {
   const email = formData.get('email');
   const message = formData.get('message');
   
-  // Here you would typically send the form data to a server
-  // For now, we'll just show a confirmation message
-  
-  // Example: Send to Formspree (replace with your endpoint)
-   fetch('https://formspree.io/f/mrbonvgl', {
-     method: 'POST',
-     body: formData,
-     headers: {
-       'Accept': 'application/json'
-     }
-   })
-   .then(response => {
-     if (response.ok) {
-       alert('Thank you for your message! I will get back to you soon.');
-       contactForm.reset();
-     } else {
-       alert('Oops! There was a problem submitting your form.');
-     }
-   })
-   .catch(error => {
-     alert('Oops! There was a problem submitting your form.');
-   });
-  
-  // Temporary alert for demo purposes
-  alert(`Thank you, ${name}! Your message has been received. I'll get back to you at ${email} soon.`);
-  contactForm.reset();
+  // Send to Formspree
+  fetch('https://formspree.io/f/mrbonvgl', {
+    method: 'POST',
+    body: formData,
+    headers: {
+      'Accept': 'application/json'
+    }
+  })
+  .then(response => {
+    if (response.ok) {
+      showNotification(`Thank you, ${name}! Your message has been sent successfully.`, 'success');
+      contactForm.reset();
+    } else {
+      showNotification('Oops! There was a problem submitting your form.', 'error');
+    }
+  })
+  .catch(error => {
+    showNotification('Oops! There was a problem submitting your form.', 'error');
+  });
 });
+
+// Custom notification function for terminal aesthetic
+function showNotification(message, type = 'info') {
+  // Remove existing notifications
+  const existing = document.querySelector('.notification');
+  if (existing) existing.remove();
+  
+  const notification = document.createElement('div');
+  notification.className = `notification notification-${type}`;
+  notification.innerHTML = `
+    <span class="notification-icon">${type === 'success' ? '✓' : '✗'}</span>
+    <span class="notification-message">${message}</span>
+  `;
+  
+  // Add styles dynamically
+  notification.style.cssText = `
+    position: fixed;
+    top: 100px;
+    right: 20px;
+    padding: 1rem 1.5rem;
+    background: ${type === 'success' ? 'rgba(0, 255, 0, 0.1)' : 'rgba(255, 0, 0, 0.1)'};
+    border: 1px solid ${type === 'success' ? '#00ff00' : '#ff4444'};
+    border-radius: 4px;
+    color: ${type === 'success' ? '#00ff00' : '#ff4444'};
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.875rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    z-index: 10000;
+    animation: slideIn 0.3s ease-out;
+    box-shadow: 0 0 20px ${type === 'success' ? 'rgba(0, 255, 0, 0.2)' : 'rgba(255, 0, 0, 0.2)'};
+  `;
+  
+  // Add animation keyframes
+  if (!document.querySelector('#notification-styles')) {
+    const style = document.createElement('style');
+    style.id = 'notification-styles';
+    style.textContent = `
+      @keyframes slideIn {
+        from { transform: translateX(100%); opacity: 0; }
+        to { transform: translateX(0); opacity: 1; }
+      }
+      @keyframes slideOut {
+        from { transform: translateX(0); opacity: 1; }
+        to { transform: translateX(100%); opacity: 0; }
+      }
+    `;
+    document.head.appendChild(style);
+  }
+  
+  document.body.appendChild(notification);
+  
+  // Remove after 5 seconds
+  setTimeout(() => {
+    notification.style.animation = 'slideOut 0.3s ease-out forwards';
+    setTimeout(() => notification.remove(), 300);
+  }, 5000);
+}
 
 // Intersection Observer for fade-in animations
 const observerOptions = {
@@ -110,10 +164,10 @@ const observer = new IntersectionObserver((entries) => {
 
 // Apply fade-in effect to cards and sections
 const animatedElements = document.querySelectorAll('.card, .project-card, .service-card, .skills-card, .highlights-card');
-animatedElements.forEach(el => {
+animatedElements.forEach((el, index) => {
   el.style.opacity = '0';
   el.style.transform = 'translateY(20px)';
-  el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+  el.style.transition = `opacity 0.6s ease ${index * 0.1}s, transform 0.6s ease ${index * 0.1}s`;
   observer.observe(el);
 });
 
@@ -150,3 +204,59 @@ if (window.history.replaceState) {
   window.history.replaceState(null, null, window.location.href);
 }
 
+// Web Share API - works perfectly on iOS devices
+const shareBtn = document.getElementById('shareBtn');
+
+if (shareBtn) {
+  // Hide share button if Web Share API is not supported
+  if (!navigator.share) {
+    shareBtn.style.display = 'none';
+  }
+
+  shareBtn.addEventListener('click', async (e) => {
+    e.preventDefault();
+    
+    const shareData = {
+      title: 'DLT Forge | Daniel Tavitiki',
+      text: 'Check out Daniel Tavitiki\'s portfolio - iOS & Google App Developer',
+      url: window.location.href
+    };
+
+    try {
+      if (navigator.share) {
+        await navigator.share(shareData);
+        console.log('Shared successfully');
+      } else {
+        // Fallback: Copy to clipboard
+        await navigator.clipboard.writeText(window.location.href);
+        showNotification('Link copied to clipboard!', 'success');
+      }
+    } catch (err) {
+      // User cancelled the share or an error occurred
+      if (err.name !== 'AbortError') {
+        console.error('Error sharing:', err);
+        // Fallback: Copy to clipboard
+        try {
+          await navigator.clipboard.writeText(window.location.href);
+          showNotification('Link copied to clipboard!', 'success');
+        } catch (clipboardErr) {
+          console.error('Clipboard error:', clipboardErr);
+        }
+      }
+    }
+  });
+}
+
+// Terminal cursor animation for hero section
+const cursorElement = document.querySelector('.terminal-prompt .cursor');
+if (cursorElement) {
+  // Already handled by CSS animation, but we can add typing effect later if needed
+}
+
+// Add hover sound effect (optional - commented out for now)
+// const cards = document.querySelectorAll('.project-card, .service-card');
+// cards.forEach(card => {
+//   card.addEventListener('mouseenter', () => {
+//     // Play subtle hover sound
+//   });
+// });
