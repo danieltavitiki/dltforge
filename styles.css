@@ -632,6 +632,61 @@ a:hover {
   font-family: var(--font-mono);
 }
 
+/* ===== Certifications ===== */
+.certifications {
+  margin-top: 3rem;
+  text-align: center;
+}
+
+.certifications h3 {
+  color: var(--accent-cyan);
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 1.5rem;
+}
+
+.certifications h3::before {
+  content: '## ';
+  color: var(--accent-gold);
+}
+
+.badges {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2rem;
+  align-items: center;
+}
+
+.badge-link {
+  display: block;
+  transition: var(--transition);
+}
+
+.badge-link:hover {
+  transform: translateY(-6px);
+  filter: drop-shadow(0 0 20px var(--accent-cyan-dim));
+}
+
+.cert-badge {
+  height: 140px;
+  width: auto;
+  object-fit: contain;
+  display: block;
+}
+
+@media (max-width: 767px) {
+  .cert-badge {
+    height: 120px;
+  }
+
+  .badges {
+    gap: 1.5rem;
+  }
+}
+
 /* ===== Experience Section ===== */
 .timeline {
   max-width: 800px;
